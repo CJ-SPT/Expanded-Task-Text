@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as config from "../config/config.json"
+import * as config from "../config/config.json";
+
+import * as dbEN from "../db/LocaleEN.json";
+import * as gsEN from "../db/GunsmithLocaleEN.json";
 
 import { DependencyContainer } from "tsyringe";
 import { InstanceManager } from "./InstanceManager";
@@ -9,7 +12,7 @@ import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
 import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { IQuest, IQuestCondition } from "@spt-aki/models/eft/common/tables/IQuest";
+import { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
 
 
 interface TimeGateUnlockRequirements 
@@ -31,21 +34,17 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
 {
     private Instance: InstanceManager = new InstanceManager();
     private modName = "ExpandedTaskText";
-    private mod;
-
-    private dbEN: JSON = require("../db/TasklocaleEN.json");
 
     private tasks: Record<string, IQuest>;
     private locale: Record<string, Record<string, string>>;
 
     private timeGateUnlocktimes: TimeGateUnlockRequirements[] = [];
     private requiredQuestsForCollector: string[] = [];
-    private requiredQuestsForLightKeeper: string[] = [];
+    private requiredQuestsForLightKeeper: string[] = []; //TODO this still doesnt work properly
 
     public preAkiLoad(container: DependencyContainer): void 
     {
         this.Instance.preAkiLoad(container, this.modName);
-        this.mod = require("../package.json");
     }
 
     public postDBLoad(container: DependencyContainer): void 
@@ -59,10 +58,8 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
         this.getAllTasks(this.Instance.database);
 
         this.getAllRequiredQuestsForQuest("5c51aac186f77432ea65c552", this.requiredQuestsForCollector);
-        this.Instance.logger.log(`Added ${this.requiredQuestsForCollector.length} quests for collector.`, LogTextColor.GREEN);
         
         this.getAllRequiredQuestsForQuest("625d6ff5ddc94657c21a1625", this.requiredQuestsForLightKeeper);
-        this.Instance.logger.log(`Added ${this.requiredQuestsForLightKeeper.length} quests for LightKeeper.`, LogTextColor.GREEN);
 
         this.getAllQuestsWithTimeRequirements();
         this.updateAllTasksText(this.Instance.database);
@@ -173,19 +170,19 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                 let timeUntilNext;
                 let leadsTo;
 
-                if (this.dbEN[key]?.IsKeyRequired == true && this.tasks[key]?._id == key) 
+                if (dbEN[key]?.IsKeyRequired == true && this.tasks[key]?._id == key) 
                 {
-                    if (this.dbEN[key]?.OptionalKey == "") 
+                    if (dbEN[key]?.OptionalKey == "") 
                     {
-                        keyDesc = `Required key(s): ${this.dbEN[key].RequiredKey} \n \n`;
+                        keyDesc = `Required key(s): ${dbEN[key].RequiredKey} \n \n`;
                     }
-                    else if (this.dbEN[key]?.RequiredKey == "") 
+                    else if (dbEN[key]?.RequiredKey == "") 
                     {
-                        keyDesc = `Optional key(s): ${this.dbEN[key].OptionalKey} \n \n`;
+                        keyDesc = `Optional key(s): ${dbEN[key].OptionalKey} \n \n`;
                     }
                     else 
                     {
-                        keyDesc = `Required Key(s):  ${this.dbEN[key].RequiredKey} \n Optional Key(s): ${this.dbEN[key].OptionalKey} \n \n`
+                        keyDesc = `Required Key(s):  ${dbEN[key].RequiredKey} \n Optional Key(s): ${dbEN[key].OptionalKey} \n \n`
                     }
                 }
 
@@ -204,10 +201,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                     leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
                 }
 
-                if (this.dbEN[key]?.RequiredParts && this.dbEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts) 
+                if (gsEN[key]?.RequiredParts && gsEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts) 
                 {
-                    durability = `Required Durability: ${this.dbEN[key].RequiredDurability} \n`;
-                    requiredParts = `Required Parts: \n ${this.dbEN[key].RequiredParts} \n \n`;
+                    durability = `Required Durability: ${gsEN[key].RequiredDurability} \n`;
+                    requiredParts = `Required Parts: \n ${gsEN[key].RequiredParts} \n \n`;
                 }
 
                 if (config.ShowTimeUntilNextQuest) 
