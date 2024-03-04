@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import * as config from "../config/config.json"
+
 import { DependencyContainer } from "tsyringe";
 import { InstanceManager } from "./InstanceManager";
 
@@ -13,7 +15,6 @@ import { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
 class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
 {
     private Instance: InstanceManager = new InstanceManager();
-    private Config = require("../config/config.json");
     private modName = "ExpandedTaskText";
     private mod;
     
@@ -114,28 +115,28 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                     }
                 }
                     
-                if (this.dbEN[key]?.RequiredCollector)
+                if (this.dbEN[key]?.RequiredCollector && config.ShowCollectorRequirements)
                 {
                     collector = "This quest is required for collector \n \n";
                 }
 
-                if (this.dbEN[key]?.RequiredLightkeeper)
+                if (this.dbEN[key]?.RequiredLightkeeper && config.ShowLightKeeperRequirements)
                 {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
 
-                if (this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "")
+                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain)
                 {
                     leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
                 }
 
-                if (this.dbEN[key]?.RequiredParts && this.dbEN[key]?.RequiredDurability)
+                if (this.dbEN[key]?.RequiredParts && this.dbEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts)
                 {
                     durability = `Required Durability: ${this.dbEN[key].RequiredDurability} \n`;
                     requiredParts = `Required Parts: \n ${this.dbEN[key].RequiredParts} \n \n`;
                 }
 
-                if (this.dbEN[key]?.TimeUntilNext)
+                if (this.dbEN[key]?.TimeUntilNext && config.ShowTimeUntilNextQuest)
                 {
                     timeUntilNext = `Time until next task unlocks: ${this.dbEN[key].TimeUntilNext} \n \n`;
                 }
@@ -170,7 +171,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                     timeUntilNext = "";
                 }
                 
-                if (this.getAllNextQuestsInChain(key) === undefined)
+                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain)
                 {
                     leadsTo = "";
                 }

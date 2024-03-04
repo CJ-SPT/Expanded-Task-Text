@@ -1,3 +1,7 @@
 {
-    "ImageChanges": true
+    "ShowCollectorRequirements": true,
+    "ShowLightKeeperRequirements": true,
+    "ShowGunsmithRequiredParts": true,
+    "ShowNextQuestInChain": true,
+    "ShowTimeUntilNextQuest": true
 }
