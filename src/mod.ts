@@ -9,86 +9,160 @@ import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
 import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
+import { IQuest, IQuestCondition } from "@spt-aki/models/eft/common/tables/IQuest";
 
 
-class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
+interface TimeGateUnlockRequirements 
+{
+    currentQuest: string,
+    nextQuest: string,
+    time: number
+}
+
+class TimeGateUnlockRequirementsImpl implements TimeGateUnlockRequirements 
+{
+    constructor(public currentQuest: string, public nextQuest: string, public time: number) 
+    {
+
+    }
+}
+
+class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod 
 {
     private Instance: InstanceManager = new InstanceManager();
     private modName = "ExpandedTaskText";
     private mod;
-    
+
     private dbEN: JSON = require("../db/TasklocaleEN.json");
 
     private tasks: Record<string, IQuest>;
     private locale: Record<string, Record<string, string>>;
 
-    public preAkiLoad(container: DependencyContainer): void
+    private timeGateUnlocktimes: TimeGateUnlockRequirements[] = [];
+    private requiredQuestsForCollector: string[] = [];
+    private requiredQuestsForLightKeeper: string[] = [];
+
+    public preAkiLoad(container: DependencyContainer): void 
     {
         this.Instance.preAkiLoad(container, this.modName);
-        
-        
-
         this.mod = require("../package.json");
     }
 
     public postDBLoad(container: DependencyContainer): void 
     {
+        const startTime = performance.now();
+
         this.Instance.postDBLoad(container);
 
         this.Instance.logger.log("Expanded Task Text is loading please wait...", LogTextColor.GREEN);
 
         this.getAllTasks(this.Instance.database);
+
+        this.getAllRequiredQuestsForQuest("5c51aac186f77432ea65c552", this.requiredQuestsForCollector);
+        this.Instance.logger.log(`Added ${this.requiredQuestsForCollector.length} quests for collector.`, LogTextColor.GREEN);
+        
+        this.getAllRequiredQuestsForQuest("625d6ff5ddc94657c21a1625", this.requiredQuestsForLightKeeper);
+        this.Instance.logger.log(`Added ${this.requiredQuestsForLightKeeper.length} quests for LightKeeper.`, LogTextColor.GREEN);
+
+        this.getAllQuestsWithTimeRequirements();
         this.updateAllTasksText(this.Instance.database);
 
-        this.Instance.logger.log("Expanded Task Text loading complete", LogTextColor.GREEN);
+        const endTime = performance.now();
+        const startupTime = (endTime - startTime) / 1000;
+
+        this.Instance.logger.log(`Expanded Task Text startup took ${startupTime} seconds...`, LogTextColor.GREEN);
     }
 
-    private getAllTasks(database: IDatabaseTables): void
+    private getAllTasks(database: IDatabaseTables): void 
     {
         this.tasks = database.templates.quests;
         this.locale = database.locales.global;
     }
 
-    private getAllNextQuestsInChain(currentQuestId: string): string | undefined
+    private getAllNextQuestsInChain(currentQuestId: string): string | undefined 
     {
         const nextQuests: string[] = [];
-    
+
         Object.keys(this.tasks).forEach(key => 
         {
-            if (this.tasks[key].conditions.AvailableForStart === undefined)
+            if (this.tasks[key].conditions.AvailableForStart === undefined) 
             {
                 return undefined;
             }
 
             const conditionsAOS = this.tasks[key].conditions.AvailableForStart;
-    
+
             for (const condition in conditionsAOS) 
             {
-                if (conditionsAOS[condition]?.conditionType === "Quest" &&
-                    conditionsAOS[condition]?.target === currentQuestId) 
+                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.target === currentQuestId) 
                 {
                     const nextQuestName = this.locale["en"][`${key} name`];
                     nextQuests.push(nextQuestName);
-    
+
                     // Recursively find the next quests for the current quest
                     const recursiveResults = this.getAllNextQuestsInChain(nextQuestName);
                     nextQuests.push(...recursiveResults);
                 }
             }
         });
-        const resultString = nextQuests.join(', ');
+        const resultString = nextQuests.join(", ");
         return resultString;
     }
-    
-    
 
-    private updateAllTasksText(database: IDatabaseTables)
+    private getAllRequiredQuestsForQuest(QuestId: string, list: string[]): string[]
     {
-        Object.keys(this.tasks).forEach(key =>
+        const results: string[] = [];
+        const conditionsAOS = this.tasks[QuestId].conditions.AvailableForStart;
+
+        for (const condition in conditionsAOS) 
+        {
+            if (conditionsAOS[condition]?.conditionType === "Quest") 
+            {
+                if (this.requiredQuestsForCollector.includes(conditionsAOS[condition].target as string)) 
+                {
+                    //this.Instance.logger.log(`Skipping adding ${this.tasks[conditionsAOS[condition].target as string].QuestName}`, LogTextColor.GREEN);
+                    continue;
+                }
+
+                //this.Instance.logger.log(`Adding ${this.tasks[conditionsAOS[condition].target as string].QuestName}`, LogTextColor.GREEN);
+
+                list.push(conditionsAOS[condition]?.target as string);
+
+                // Recursively find the next quests for the current quest
+                const recursiveResults = this.getAllRequiredQuestsForQuest(conditionsAOS[condition]?.target as string, list);
+                results.push(...recursiveResults);
+            }
+        }
+        return results;
+    }
+
+    private getAllQuestsWithTimeRequirements() 
+    {
+        const tasks = this.tasks;
+
+        for (const task in tasks) 
+        {
+            const conditionsAOS = tasks[task].conditions.AvailableForStart;
+
+            for (const condition in conditionsAOS) 
+            {
+                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.availableAfter > 0) 
+                {
+                    const hours = conditionsAOS[condition].availableAfter / 3600;
+                    const data = new TimeGateUnlockRequirementsImpl(conditionsAOS[condition].target as string, task, hours);
+
+                    this.timeGateUnlocktimes.push(data);
+                }
+            }
+        }
+    }
+
+    private updateAllTasksText(database: IDatabaseTables) 
+    {
+        Object.keys(this.tasks).forEach(key => 
         {
 
-            for (const localeID in this.locale)
+            for (const localeID in this.locale) 
             {
                 const originalDesc = this.locale[localeID][`${key} description`];
                 let keyDesc;
@@ -99,87 +173,93 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                 let timeUntilNext;
                 let leadsTo;
 
-                if (this.dbEN[key]?.IsKeyRequired == true && this.tasks[key]?._id == key)
+                if (this.dbEN[key]?.IsKeyRequired == true && this.tasks[key]?._id == key) 
                 {
-                    if (this.dbEN[key]?.OptionalKey == "")
+                    if (this.dbEN[key]?.OptionalKey == "") 
                     {
                         keyDesc = `Required key(s): ${this.dbEN[key].RequiredKey} \n \n`;
                     }
-                    else if (this.dbEN[key]?.RequiredKey == "")
+                    else if (this.dbEN[key]?.RequiredKey == "") 
                     {
                         keyDesc = `Optional key(s): ${this.dbEN[key].OptionalKey} \n \n`;
                     }
-                    else
+                    else 
                     {
                         keyDesc = `Required Key(s):  ${this.dbEN[key].RequiredKey} \n Optional Key(s): ${this.dbEN[key].OptionalKey} \n \n`
                     }
                 }
-                    
-                if (this.dbEN[key]?.RequiredCollector && config.ShowCollectorRequirements)
+
+                if (this.requiredQuestsForCollector.includes(key) && config.ShowCollectorRequirements) 
                 {
                     collector = "This quest is required for collector \n \n";
                 }
 
-                if (this.dbEN[key]?.RequiredLightkeeper && config.ShowLightKeeperRequirements)
+                if (this.requiredQuestsForLightKeeper.includes(key) && config.ShowLightKeeperRequirements) 
                 {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
 
-                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain)
+                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain) 
                 {
                     leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
                 }
 
-                if (this.dbEN[key]?.RequiredParts && this.dbEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts)
+                if (this.dbEN[key]?.RequiredParts && this.dbEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts) 
                 {
                     durability = `Required Durability: ${this.dbEN[key].RequiredDurability} \n`;
                     requiredParts = `Required Parts: \n ${this.dbEN[key].RequiredParts} \n \n`;
                 }
 
-                if (this.dbEN[key]?.TimeUntilNext && config.ShowTimeUntilNextQuest)
+                if (config.ShowTimeUntilNextQuest) 
                 {
-                    timeUntilNext = `Time until next task unlocks: ${this.dbEN[key].TimeUntilNext} \n \n`;
+                    for (const req of this.timeGateUnlocktimes) 
+                    {
+                        if (req.currentQuest === key) 
+                        {
+                            timeUntilNext = `Hours until ${this.locale["en"][`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
+                        }
+                    }
                 }
 
-                if (keyDesc == undefined)
+                if (keyDesc == undefined) 
                 {
                     keyDesc = "";
                 }
 
-                if (collector == undefined)
+                if (collector == undefined) 
                 {
                     collector = "";
                 }
 
-                if (lightKeeper == undefined)
+                if (lightKeeper == undefined) 
                 {
                     lightKeeper = "";
                 }
 
-                if (requiredParts == undefined)
+                if (requiredParts == undefined) 
                 {
                     requiredParts = "";
                 }
 
-                if (durability == undefined)
+                if (durability == undefined) 
                 {
                     durability = "";
                 }
 
-                if (timeUntilNext == undefined)
+                if (timeUntilNext == undefined) 
                 {
                     timeUntilNext = "";
                 }
-                
-                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain)
+
+                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain) 
                 {
                     leadsTo = "";
                 }
-                
-                if (!this.Instance.getPath())
+
+                if (!this.Instance.getPath()) 
                 {
                     database.locales.global[localeID][`${key} description`] = collector + lightKeeper + leadsTo + timeUntilNext + keyDesc + durability + requiredParts + originalDesc;
-                }     
+                }
             }
         });
     }
