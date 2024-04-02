@@ -106,8 +106,9 @@ export declare class InventoryHelper {
      * @param containerFS2D Container grid to add item to
      * @param itemWithChildren Item to add to grid
      * @param containerId Id of the container we're fitting item into
+     * @param desiredSlotId slot id value to use, default is "hideout"
      */
-    placeItemInContainer(containerFS2D: number[][], itemWithChildren: Item[], containerId: string): void;
+    placeItemInContainer(containerFS2D: number[][], itemWithChildren: Item[], containerId: string, desiredSlotId?: string): void;
     /**
      * Find a location to place an item into inventory and place it
      * @param stashFS2D 2-dimensional representation of the container slots

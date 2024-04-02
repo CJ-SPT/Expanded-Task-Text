@@ -54,6 +54,7 @@ export interface Info {
     LowerNickname: string;
     Side: string;
     SquadInviteRestriction: boolean;
+    HasCoopExtension: boolean;
     Voice: string;
     Level: number;
     Experience: number;
@@ -181,6 +182,7 @@ export interface IEftStats {
     LastPlayerState?: LastPlayerState;
     TotalInGameTime: number;
     SurvivorClass?: string;
+    sptLastRaidFenceRepChange?: number;
 }
 export interface IDroppedItem {
     QuestId: string;

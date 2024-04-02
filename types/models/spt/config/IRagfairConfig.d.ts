@@ -1,9 +1,11 @@
 import { MinMax } from "@spt-aki/models/common/MinMax";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig, IRunIntervalValues } from "@spt-aki/models/spt/config/IBaseConfig";
 export interface IRagfairConfig extends IBaseConfig {
     kind: "aki-ragfair";
     /** How many seconds should pass before expired offers and procesed + player offers checked if sold */
     runIntervalSeconds: number;
+    /** Default values used to hydrate `runIntervalSeconds` with */
+    runIntervalValues: IRunIntervalValues;
     /** Player listing settings */
     sell: Sell;
     /** Trader ids + should their assorts be listed on flea*/
@@ -129,6 +131,10 @@ export interface Blacklist {
     traderItems: boolean;
     /** Maximum level an armor plate can be found in a flea-listed armor item */
     armorPlate: IArmorPlateBlacklistSettings;
+    /** Should specific categories be blacklisted from the flea, true = use blacklist */
+    enableCustomItemCategoryList: boolean;
+    /** Custom category blacklist for parent Ids */
+    customItemCategoryList: string[];
 }
 export interface IArmorPlateBlacklistSettings {
     /** Max level of plates an armor can have without being removed */

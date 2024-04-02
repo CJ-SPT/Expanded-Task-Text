@@ -5,14 +5,14 @@ import * as config from "../config/config.json";
 import * as dbEN from "../db/LocaleEN.json";
 import * as gsEN from "../db/GunsmithLocaleEN.json";
 
-import { DependencyContainer } from "tsyringe";
+import type { DependencyContainer } from "tsyringe";
 import { InstanceManager } from "./InstanceManager";
 
-import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
-import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
+import type { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
+import type { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
-import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
+import type { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
+import type { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
 
 
 interface TimeGateUnlockRequirements 
@@ -59,7 +59,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
 
         this.getAllRequiredQuestsForQuest("5c51aac186f77432ea65c552", this.requiredQuestsForCollector);
         
-        this.getAllRequiredQuestsForQuest("625d6ff5ddc94657c21a1625", this.requiredQuestsForLightKeeper);
+        //this.getAllRequiredQuestsForQuest("625d6ff5ddc94657c21a1625", this.requiredQuestsForLightKeeper);
 
         this.getAllQuestsWithTimeRequirements();
         this.updateAllTasksText(this.Instance.database);
@@ -80,6 +80,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
     {
         const nextQuests: string[] = [];
 
+        // biome-ignore lint/complexity/noForEach: <explanation>
         Object.keys(this.tasks).forEach(key => 
         {
             if (this.tasks[key].conditions.AvailableForStart === undefined) 
@@ -154,8 +155,27 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
         }
     }
 
+    private getAndBuildPartsList(taskId: string): string
+    {
+        const partIds: string[] = gsEN[taskId]?.RequiredParts;
+        const localizedParts: string[] = [];
+
+        if (partIds.length !== 0)
+        {
+            for (const part of partIds)
+            {
+                localizedParts.push(this.locale["en"][`${part} Name`]);
+            }
+
+            return localizedParts.join("\n");
+        }
+
+        return "";
+    }
+
     private updateAllTasksText(database: IDatabaseTables) 
     {
+        // biome-ignore lint/complexity/noForEach: <explanation>
         Object.keys(this.tasks).forEach(key => 
         {
 
@@ -190,21 +210,21 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod
                 {
                     collector = "This quest is required for collector \n \n";
                 }
-
+                /*
                 if (this.requiredQuestsForLightKeeper.includes(key) && config.ShowLightKeeperRequirements) 
                 {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
-
+                */
                 if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain) 
                 {
                     leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
                 }
 
-                if (gsEN[key]?.RequiredParts && gsEN[key]?.RequiredDurability && config.ShowGunsmithRequiredParts) 
+                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
                 {
-                    durability = `Required Durability: ${gsEN[key].RequiredDurability} \n`;
-                    requiredParts = `Required Parts: \n ${gsEN[key].RequiredParts} \n \n`;
+                    durability = "Required Durability: 60 \n";
+                    requiredParts = `${this.getAndBuildPartsList(key)} \n \n`;
                 }
 
                 if (config.ShowTimeUntilNextQuest) 
