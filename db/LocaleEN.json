@@ -13,6 +13,13 @@
         "OptionalKey": ""
     },
 
+    "59689fbd86f7740d137ebfc4": {
+        "QuestName": "Operation Aquarius Part 1",
+        "IsKeyRequired": true,
+        "RequiredKey": "Dorm room 206 key",
+        "OptionalKey": ""
+    },
+
     "63ab180c87413d64ae0ac20a": {
         "QuestName": "Dangerous Road",
         "IsKeyRequired": false,
