@@ -173,8 +173,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                 {
                     if (part == traders[trader].assort.items[i]._tpl && loyalLevelItems[traders[trader].assort.items[i]._id] !== undefined) 
                     {
-                        partString += `\n    Sold by (${this.locale["en"][`${trader} Nickname`]} LL ${loyalLevelItems[traders[trader].assort.items[i]._id]})`
-                        this.Instance.logger.log(partString, LogTextColor.GREEN);
+                        partString += `\n    Sold by (${this.locale["en"][`${trader} Nickname`]} LL ${loyalLevelItems[traders[trader].assort.items[i]._id]})`;
                     }
                 }
             }
