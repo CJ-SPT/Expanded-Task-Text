@@ -219,52 +219,65 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
                 */
-                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain) {
+                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain) 
+                {
                     leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
                 }
 
-                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) {
+                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
+                {
                     durability = "Required Durability: 60 \n";
                     requiredParts = `${this.getAndBuildPartsList(key)} \n \n`;
                 }
 
-                if (config.ShowTimeUntilNextQuest) {
-                    for (const req of this.timeGateUnlocktimes) {
-                        if (req.currentQuest === key) {
+                if (config.ShowTimeUntilNextQuest) 
+                {
+                    for (const req of this.timeGateUnlocktimes) 
+                    {
+                        if (req.currentQuest === key) 
+                        {
                             timeUntilNext = `Hours until ${this.locale["en"][`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
                         }
                     }
                 }
 
-                if (keyDesc == undefined) {
+                if (keyDesc == undefined) 
+                {
                     keyDesc = "";
                 }
 
-                if (collector == undefined) {
+                if (collector == undefined) 
+                {
                     collector = "";
                 }
 
-                if (lightKeeper == undefined) {
+                if (lightKeeper == undefined) 
+                {
                     lightKeeper = "";
                 }
 
-                if (requiredParts == undefined) {
+                if (requiredParts == undefined) 
+                {
                     requiredParts = "";
                 }
 
-                if (durability == undefined) {
+                if (durability == undefined) 
+                {
                     durability = "";
                 }
 
-                if (timeUntilNext == undefined) {
+                if (timeUntilNext == undefined) 
+                {
                     timeUntilNext = "";
                 }
 
-                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain) {
+                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain) 
+                {
                     leadsTo = "";
                 }
 
-                if (!this.Instance.getPath()) {
+                if (!this.Instance.getPath()) 
+                {
                     database.locales.global[localeID][`${key} description`] = collector + lightKeeper + leadsTo + timeUntilNext + keyDesc + durability + requiredParts + originalDesc;
                 }
             }

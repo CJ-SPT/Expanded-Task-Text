@@ -20,6 +20,13 @@
         "OptionalKey": ""
     },
 
+    "5969f9e986f7741dde183a50": {
+        "QuestName": "Pharmacist",
+        "IsKeyRequired": true,
+        "RequiredKey": "Dorm room 114 key",
+        "OptionalKey": ""
+    },
+
     "63ab180c87413d64ae0ac20a": {
         "QuestName": "Dangerous Road",
         "IsKeyRequired": false,
