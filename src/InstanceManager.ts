@@ -17,6 +17,7 @@ import { ImporterUtil } from "@spt-aki/utils/ImporterUtil";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
 import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
+import { HashUtil } from "@spt-aki/utils/HashUtil";
 
 export class InstanceManager 
 {
@@ -27,6 +28,7 @@ export class InstanceManager
     public modPath: string = path.join(process.cwd(), "\\user\\mods\\TarkovTools\\");
     public dbPath: string = path.join(process.cwd(), "\\user\\mods\\TarkovTools\\database");
     public profilePath: string = path.join(process.cwd(), "\\user\\profiles");
+    public cachePath: string = path.resolve(__dirname, "..\\config\\cache.json");
 
     // Instances
     public container: DependencyContainer;
@@ -46,6 +48,7 @@ export class InstanceManager
     public profileHelper: ProfileHelper;
     public ragfairPriceService: RagfairPriceService;
     public importerUtil: ImporterUtil;
+    public hashUtil: HashUtil;
     //#endregion
 
     // Call at the start of the mods postDBLoad method
@@ -76,6 +79,7 @@ export class InstanceManager
         this.profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
         this.ragfairPriceService = container.resolve<RagfairPriceService>("RagfairPriceService");
         this.importerUtil = container.resolve<ImporterUtil>("ImporterUtil");
+        this.hashUtil = container.resolve<HashUtil>("HashUtil");
     }
 
     public getPath(): boolean
