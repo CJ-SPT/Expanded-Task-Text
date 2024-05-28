@@ -40,7 +40,9 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
     private requiredQuestsForCollector: string[] = [];
     private requiredQuestsForLightKeeper: string[] = []; //TODO this still doesnt work properly
     private tasksHash: string;
-    private cache: { tasksHash: string; locale: Record<string, Record<string, string>>; };
+    private configHash: string;
+    private cache: { tasksHash: string; configHash: string; locale: Record<string, Record<string, string>>; };
+    
 
     public preAkiLoad(container: DependencyContainer): void {
         this.Instance.preAkiLoad(container, this.modName);
@@ -55,7 +57,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
 
         this.getAllTasks(this.Instance.database);
 
-        this.getTasksHash();
+        this.getHashes();
         if (this.isCacheValid()) {
             for (const localeID in this.locale) {
                 for (const questDesc in this.cache.locale[localeID]) {
@@ -66,6 +68,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
         else {
             this.cache = {
                 tasksHash: this.tasksHash,
+                configHash: this.configHash,
                 locale: {}
             };
             for (const localeID in this.locale) {
@@ -87,9 +90,12 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
         this.Instance.logger.log(`Expanded Task Text startup took ${startupTime} seconds...`, LogTextColor.GREEN);
     }
 
-    private getTasksHash(): void {
+    private getHashes(): void {
         const tasksString = this.Instance.jsonUtil.serialize(this.tasks);
+        const configString = this.Instance.jsonUtil.serialize(config);
+        
         this.tasksHash = this.Instance.hashUtil.generateHashForData("sha1", tasksString);
+        this.configHash = this.Instance.hashUtil.generateHashForData("sha1", configString);
     }
 
     private isCacheValid(): boolean {
@@ -99,7 +105,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
         }
         this.cache = JSON.parse(fs.readFileSync(this.Instance.cachePath, "utf-8"));
 		
-        if (this.cache.tasksHash == this.tasksHash) {
+        if (this.cache.tasksHash == this.tasksHash && this.cache.configHash == this.configHash) {
             this.Instance.logger.log("Valid cache found. Merging saved tasks.", LogTextColor.GREEN);
             return true;
         }
@@ -254,7 +260,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                 }
 
                 if (this.requiredQuestsForCollector.includes(key) && config.ShowCollectorRequirements) {
-                    collector = "This quest is required for collector \n \n";
+                    collector = "This quest is required for Collector \n \n";
                 }
                 /*
                 if (this.requiredQuestsForLightKeeper.includes(key) && config.ShowLightKeeperRequirements) 
@@ -269,9 +275,13 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                 {
                     leadsTo = `Leads to: ${nextQuest} \n \n`;
                 }
+                else if (config.ShowNextQuestInChain)
+                {
+                    leadsTo = "Leads to: Nothing \n \n";
+                }
                 else
                 {
-                    leadsTo = "Leads to: Nothing \n \n"
+                    leadsTo = "";
                 }
 
                 if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
