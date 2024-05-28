@@ -15,7 +15,6 @@ import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
 import type { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
 import type { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
 import { ITrader } from "@spt-aki/models/eft/common/tables/ITrader";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 
 
 interface TimeGateUnlockRequirements {
@@ -263,9 +262,16 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
                 */
-                if ((this.getAllNextQuestsInChain(key) !== undefined || this.getAllNextQuestsInChain(key) !== "") && config.ShowNextQuestInChain) 
+
+                const nextQuest: string = this.getAllNextQuestsInChain(key);
+
+                if (nextQuest.length > 0 && config.ShowNextQuestInChain) 
                 {
-                    leadsTo = `Leads to: ${this.getAllNextQuestsInChain(key)} \n \n`;
+                    leadsTo = `Leads to: ${nextQuest} \n \n`;
+                }
+                else
+                {
+                    leadsTo = "Leads to: Nothing \n \n"
                 }
 
                 if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
@@ -313,11 +319,6 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
                 if (timeUntilNext == undefined) 
                 {
                     timeUntilNext = "";
-                }
-
-                if (this.getAllNextQuestsInChain(key) === undefined || !config.ShowNextQuestInChain) 
-                {
-                    leadsTo = "";
                 }
 
                 if (!this.Instance.getPath()) 
