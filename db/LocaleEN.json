@@ -354,5 +354,12 @@
         "IsKeyRequired": true,
         "RequiredKey": "X-ray room key",
         "OptionalKey": ""
+    },
+
+    "65733403eefc2c312a759ddb": {
+        "QuestName": "Developer Secrets Part 1",
+        "IsKeyRequired": true,
+        "RequiredKey": "\"Negotiation\" room key",
+        "OptionalKey": ""
     }
 }
