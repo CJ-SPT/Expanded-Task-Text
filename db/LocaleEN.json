@@ -372,9 +372,9 @@
 
     "6573382e557ff128bf3da536": {
         "QuestName": "Developer Secrets Part 2",
-        "IsKeyRequired": false,
-        "RequiredKey": "",
-        "OptionalKey": "Relaxation room key"
+        "IsKeyRequired": true,
+        "RequiredKey": "Relaxation room key",
+        "OptionalKey": ""
     },
 
     "6573397ef3f8344c4575cd87": {
