@@ -28,7 +28,7 @@ export class InstanceManager
     public modPath: string = path.join(process.cwd(), "user", "mods", "TarkovTools");
     public dbPath: string = path.join(process.cwd(), "user", "mods", "TarkovTools", "database");
     public profilePath: string = path.join(process.cwd(), "user", "profiles");
-    public cachePath: string = path.join(__dirname, "..", "config", "cache.json");
+    public cachePath: string = path.join(path.dirname(__filename), "..", "config", "cache.json");
 
     // Instances
     public container: DependencyContainer;
