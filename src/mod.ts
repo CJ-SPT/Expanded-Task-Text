@@ -9,12 +9,12 @@ import * as gsEN from "../db/GunsmithLocaleEN.json";
 import type { DependencyContainer } from "tsyringe";
 import { InstanceManager } from "./InstanceManager";
 
-import type { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod";
-import type { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
-import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
-import type { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import type { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
-import { ITrader } from "@spt-aki/models/eft/common/tables/ITrader";
+import type { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
+import type { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
+import type { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
+import type { IQuest } from "@spt/models/eft/common/tables/IQuest";
+import { ITrader } from "@spt/models/eft/common/tables/ITrader";
 
 
 interface TimeGateUnlockRequirements {
@@ -29,7 +29,7 @@ class TimeGateUnlockRequirementsImpl implements TimeGateUnlockRequirements {
     }
 }
 
-class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
+class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
     private Instance: InstanceManager = new InstanceManager();
     private modName = "ExpandedTaskText";
 
@@ -42,10 +42,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
     private tasksHash: string;
     private configHash: string;
     private cache: { tasksHash: string; configHash: string; locale: Record<string, Record<string, string>>; };
-    
 
-    public preAkiLoad(container: DependencyContainer): void {
-        this.Instance.preAkiLoad(container, this.modName);
+
+    public preSptLoad(container: DependencyContainer): void {
+        this.Instance.preSptLoad(container, this.modName);
     }
 
     public postDBLoad(container: DependencyContainer): void {
@@ -93,7 +93,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
     private getHashes(): void {
         const tasksString = this.Instance.jsonUtil.serialize(this.tasks);
         const configString = this.Instance.jsonUtil.serialize(config);
-        
+
         this.tasksHash = this.Instance.hashUtil.generateHashForData("sha1", tasksString);
         this.configHash = this.Instance.hashUtil.generateHashForData("sha1", configString);
     }
@@ -104,7 +104,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
             return false;
         }
         this.cache = JSON.parse(fs.readFileSync(this.Instance.cachePath, "utf-8"));
-		
+
         if (this.cache.tasksHash == this.tasksHash && this.cache.configHash == this.configHash) {
             this.Instance.logger.log("Valid cache found. Merging saved tasks.", LogTextColor.GREEN);
             return true;
@@ -207,21 +207,16 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
 
         const loyalLevelItems: Record<string, number> = this.getAllTraderLoyalLevelItems();
 
-        if (partIds.length === 0) 
-        {
+        if (partIds.length === 0) {
             return "";
         }
 
-        for (const part of partIds) 
-        {
+        for (const part of partIds) {
             let partString = this.locale["en"][`${part} Name`];
 
-            for (const trader in traders) 
-            {
-                for (let i = 0; i < traders[trader]?.assort?.items.length; i++) 
-                {
-                    if (part == traders[trader].assort.items[i]._tpl && loyalLevelItems[traders[trader].assort.items[i]._id] !== undefined) 
-                    {
+            for (const trader in traders) {
+                for (let i = 0; i < traders[trader]?.assort?.items.length; i++) {
+                    if (part == traders[trader].assort.items[i]._tpl && loyalLevelItems[traders[trader].assort.items[i]._id] !== undefined) {
                         partString += `\n    Sold by (${this.locale["en"][`${trader} Nickname`]} LL ${loyalLevelItems[traders[trader].assort.items[i]._id]})`;
                     }
                 }
@@ -271,68 +266,54 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreAkiLoadMod {
 
                 const nextQuest: string = this.getAllNextQuestsInChain(key);
 
-                if (nextQuest.length > 0 && config.ShowNextQuestInChain) 
-                {
+                if (nextQuest.length > 0 && config.ShowNextQuestInChain) {
                     leadsTo = `Leads to: ${nextQuest} \n \n`;
                 }
-                else if (config.ShowNextQuestInChain)
-                {
+                else if (config.ShowNextQuestInChain) {
                     leadsTo = "Leads to: Nothing \n \n";
                 }
-                else
-                {
+                else {
                     leadsTo = "";
                 }
 
-                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
-                {
+                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) {
                     durability = "Required Durability: 60 \n";
                     requiredParts = `${this.getAndBuildPartsList(key)} \n \n`;
                 }
 
-                if (config.ShowTimeUntilNextQuest) 
-                {
-                    for (const req of this.timeGateUnlocktimes) 
-                    {
-                        if (req.currentQuest === key) 
-                        {
+                if (config.ShowTimeUntilNextQuest) {
+                    for (const req of this.timeGateUnlocktimes) {
+                        if (req.currentQuest === key) {
                             timeUntilNext = `Hours until ${this.locale["en"][`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
                         }
                     }
                 }
 
-                if (keyDesc == undefined) 
-                {
+                if (keyDesc == undefined) {
                     keyDesc = "";
                 }
 
-                if (collector == undefined) 
-                {
+                if (collector == undefined) {
                     collector = "";
                 }
 
-                if (lightKeeper == undefined) 
-                {
+                if (lightKeeper == undefined) {
                     lightKeeper = "";
                 }
 
-                if (requiredParts == undefined) 
-                {
+                if (requiredParts == undefined) {
                     requiredParts = "";
                 }
 
-                if (durability == undefined) 
-                {
+                if (durability == undefined) {
                     durability = "";
                 }
 
-                if (timeUntilNext == undefined) 
-                {
+                if (timeUntilNext == undefined) {
                     timeUntilNext = "";
                 }
 
-                if (!this.Instance.getPath()) 
-                {
+                if (!this.Instance.getPath()) {
                     database.locales.global[localeID][`${key} description`] = collector + lightKeeper + leadsTo + timeUntilNext + keyDesc + durability + requiredParts + originalDesc;
                     this.cache.locale[localeID][`${key} description`] = database.locales.global[localeID][`${key} description`];
                 }
