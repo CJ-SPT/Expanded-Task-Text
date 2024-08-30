@@ -14,22 +14,25 @@ import type { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
 import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 import type { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
 import type { IQuest } from "@spt/models/eft/common/tables/IQuest";
-import { ITrader } from "@spt/models/eft/common/tables/ITrader";
+import type { ITrader } from "@spt/models/eft/common/tables/ITrader";
 
 
-interface TimeGateUnlockRequirements {
+interface TimeGateUnlockRequirements 
+{
     currentQuest: string,
     nextQuest: string,
     time: number
 }
 
-class TimeGateUnlockRequirementsImpl implements TimeGateUnlockRequirements {
-    constructor(public currentQuest: string, public nextQuest: string, public time: number) {
-
+class TimeGateUnlockRequirementsImpl implements TimeGateUnlockRequirements 
+{
+    constructor(public currentQuest: string, public nextQuest: string, public time: number) 
+    {
     }
 }
 
-class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
+class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod 
+{
     private Instance: InstanceManager = new InstanceManager();
     private modName = "ExpandedTaskText";
 
@@ -44,11 +47,13 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
     private cache: { tasksHash: string; configHash: string; locale: Record<string, Record<string, string>>; };
 
 
-    public preSptLoad(container: DependencyContainer): void {
+    public preSptLoad(container: DependencyContainer): void 
+    {
         this.Instance.preSptLoad(container, this.modName);
     }
 
-    public postDBLoad(container: DependencyContainer): void {
+    public postDBLoad(container: DependencyContainer): void 
+    {
         const startTime = performance.now();
 
         this.Instance.postDBLoad(container);
@@ -58,20 +63,27 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         this.getAllTasks(this.Instance.database);
 
         this.getHashes();
-        if (this.isCacheValid()) {
-            for (const localeID in this.locale) {
-                for (const questDesc in this.cache.locale[localeID]) {
+        
+        if (this.isCacheValid()) 
+        {
+            for (const localeID in this.locale) 
+            {
+                for (const questDesc in this.cache.locale[localeID]) 
+                {
                     this.locale[localeID][questDesc] = this.cache.locale[localeID][questDesc];
                 }
             }
         }
-        else {
+        else 
+        {
             this.cache = {
                 tasksHash: this.tasksHash,
                 configHash: this.configHash,
                 locale: {}
             };
-            for (const localeID in this.locale) {
+
+            for (const localeID in this.locale) 
+            {
                 this.cache.locale[localeID] = {};
             }
 
@@ -90,7 +102,8 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         this.Instance.logger.log(`Expanded Task Text startup took ${startupTime} seconds...`, LogTextColor.GREEN);
     }
 
-    private getHashes(): void {
+    private getHashes(): void 
+    {
         const tasksString = this.Instance.jsonUtil.serialize(this.tasks);
         const configString = this.Instance.jsonUtil.serialize(config);
 
@@ -98,42 +111,50 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         this.configHash = this.Instance.hashUtil.generateHashForData("sha1", configString);
     }
 
-    private isCacheValid(): boolean {
-        if (!fs.existsSync(this.Instance.cachePath)) {
+    private isCacheValid(): boolean 
+    {
+        if (!fs.existsSync(this.Instance.cachePath)) 
+        {
             this.Instance.logger.log("Cache not found. Processing tasks.", LogTextColor.GREEN);
             return false;
         }
         this.cache = JSON.parse(fs.readFileSync(this.Instance.cachePath, "utf-8"));
 
-        if (this.cache.tasksHash == this.tasksHash && this.cache.configHash == this.configHash) {
+        if (this.cache.tasksHash === this.tasksHash && this.cache.configHash === this.configHash) 
+        {
             this.Instance.logger.log("Valid cache found. Merging saved tasks.", LogTextColor.GREEN);
             return true;
         }
-        else {
-            this.Instance.logger.log("Invalid cache found. Processing tasks.", LogTextColor.GREEN);
-            return false;
-        }
+
+        this.Instance.logger.log("Invalid cache found. Processing tasks.", LogTextColor.GREEN);
+        return false;
     }
 
-    private getAllTasks(database: IDatabaseTables): void {
+    private getAllTasks(database: IDatabaseTables): void 
+    {
         this.tasks = database.templates.quests;
         this.locale = database.locales.global;
     }
 
-    private getAllNextQuestsInChain(currentQuestId: string): string | undefined {
+    private getAllNextQuestsInChain(currentQuestId: string): string | undefined 
+    {
         const nextQuests: string[] = [];
 
         // biome-ignore lint/complexity/noForEach: <explanation>
-        Object.keys(this.tasks).forEach(key => {
-            if (this.tasks[key].conditions.AvailableForStart === undefined) {
+        Object.keys(this.tasks).forEach(key => 
+        {
+            if (this.tasks[key].conditions.AvailableForStart === undefined) 
+            {
                 return undefined;
             }
 
             const conditionsAOS = this.tasks[key].conditions.AvailableForStart;
 
-            for (const condition in conditionsAOS) {
-                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.target === currentQuestId) {
-                    const nextQuestName = this.locale["en"][`${key} name`];
+            for (const condition in conditionsAOS) 
+            {
+                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.target === currentQuestId) 
+                {
+                    const nextQuestName = this.locale.en[`${key} name`];
                     nextQuests.push(nextQuestName);
 
                     // Recursively find the next quests for the current quest
@@ -142,22 +163,24 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
                 }
             }
         });
+
         const resultString = nextQuests.join(", ");
         return resultString;
     }
 
-    private getAllRequiredQuestsForQuest(QuestId: string, list: string[]): string[] {
+    private getAllRequiredQuestsForQuest(QuestId: string, list: string[]): string[] 
+    {
         const results: string[] = [];
         const conditionsAOS = this.tasks[QuestId].conditions.AvailableForStart;
 
-        for (const condition in conditionsAOS) {
-            if (conditionsAOS[condition]?.conditionType === "Quest") {
-                if (this.requiredQuestsForCollector.includes(conditionsAOS[condition].target as string)) {
-                    //this.Instance.logger.log(`Skipping adding ${this.tasks[conditionsAOS[condition].target as string].QuestName}`, LogTextColor.GREEN);
+        for (const condition in conditionsAOS) 
+        {
+            if (conditionsAOS[condition]?.conditionType === "Quest") 
+            {
+                if (this.requiredQuestsForCollector.includes(conditionsAOS[condition].target as string)) 
+                {
                     continue;
                 }
-
-                //this.Instance.logger.log(`Adding ${this.tasks[conditionsAOS[condition].target as string].QuestName}`, LogTextColor.GREEN);
 
                 list.push(conditionsAOS[condition]?.target as string);
 
@@ -169,14 +192,18 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         return results;
     }
 
-    private getAllQuestsWithTimeRequirements() {
+    private getAllQuestsWithTimeRequirements() 
+    {
         const tasks = this.tasks;
 
-        for (const task in tasks) {
+        for (const task in tasks) 
+        {
             const conditionsAOS = tasks[task].conditions.AvailableForStart;
 
-            for (const condition in conditionsAOS) {
-                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.availableAfter > 0) {
+            for (const condition in conditionsAOS) 
+            {
+                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.availableAfter > 0) 
+                {
                     const hours = conditionsAOS[condition].availableAfter / 3600;
                     const data = new TimeGateUnlockRequirementsImpl(conditionsAOS[condition].target as string, task, hours);
 
@@ -186,12 +213,15 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         }
     }
 
-    private getAllTraderLoyalLevelItems(): Record<string, number> {
+    private getAllTraderLoyalLevelItems(): Record<string, number> 
+    {
         const traders: Record<string, ITrader> = this.Instance.database.traders;
         const loyalLevelItems: Record<string, number> = {};
 
-        for (const trader in traders) {
-            for (const assortItem in traders[trader]?.assort?.loyal_level_items) {
+        for (const trader in traders) 
+        {
+            for (const assortItem in traders[trader]?.assort?.loyal_level_items) 
+            {
                 loyalLevelItems[assortItem] = traders[trader].assort.loyal_level_items[assortItem];
             }
         }
@@ -199,7 +229,8 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         return loyalLevelItems;
     }
 
-    private getAndBuildPartsList(taskId: string): string {
+    private getAndBuildPartsList(taskId: string): string 
+    {
         const partIds: string[] = gsEN[taskId]?.RequiredParts;
         const localizedParts: string[] = [];
 
@@ -207,17 +238,22 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
 
         const loyalLevelItems: Record<string, number> = this.getAllTraderLoyalLevelItems();
 
-        if (partIds.length === 0) {
+        if (partIds.length === 0) 
+        {
             return "";
         }
 
-        for (const part of partIds) {
-            let partString = this.locale["en"][`${part} Name`];
+        for (const part of partIds) 
+        {
+            let partString = this.locale.en[`${part} Name`];
 
-            for (const trader in traders) {
-                for (let i = 0; i < traders[trader]?.assort?.items.length; i++) {
-                    if (part == traders[trader].assort.items[i]._tpl && loyalLevelItems[traders[trader].assort.items[i]._id] !== undefined) {
-                        partString += `\n    Sold by (${this.locale["en"][`${trader} Nickname`]} LL ${loyalLevelItems[traders[trader].assort.items[i]._id]})`;
+            for (const trader in traders) 
+            {
+                for (let i = 0; i < traders[trader]?.assort?.items.length; i++) 
+                {
+                    if (part === traders[trader].assort.items[i]._tpl && loyalLevelItems[traders[trader].assort.items[i]._id] !== undefined) 
+                    {
+                        partString += `\n    Sold by (${this.locale.en[`${trader} Nickname`]} LL ${loyalLevelItems[traders[trader].assort.items[i]._id]})`;
                     }
                 }
             }
@@ -228,33 +264,41 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
         return localizedParts.join("\n\n");
     }
 
-    private updateAllTasksText(database: IDatabaseTables) {
+    private updateAllTasksText(database: IDatabaseTables) 
+    {
         // biome-ignore lint/complexity/noForEach: <explanation>
-        Object.keys(this.tasks).forEach(key => {
+        Object.keys(this.tasks).forEach(key => 
+        {
 
-            for (const localeID in this.locale) {
+            for (const localeID in this.locale) 
+            {
                 const originalDesc = this.locale[localeID][`${key} description`];
-                let keyDesc;
-                let collector;
-                let lightKeeper;
-                let durability;
-                let requiredParts;
-                let timeUntilNext;
-                let leadsTo;
+                let keyDesc: string;
+                let collector: string;
+                let lightKeeper: string;
+                let durability: string;
+                let requiredParts: string;
+                let timeUntilNext: string;
+                let leadsTo: string;
 
-                if (dbEN[key]?.IsKeyRequired == true && this.tasks[key]?._id == key) {
-                    if (dbEN[key]?.OptionalKey == "") {
+                if (dbEN[key]?.IsKeyRequired === true && this.tasks[key]?._id === key) 
+                {
+                    if (dbEN[key]?.OptionalKey === "") 
+                    {
                         keyDesc = `Required key(s): ${dbEN[key].RequiredKey} \n \n`;
                     }
-                    else if (dbEN[key]?.RequiredKey == "") {
+                    else if (dbEN[key]?.RequiredKey === "") 
+                    {
                         keyDesc = `Optional key(s): ${dbEN[key].OptionalKey} \n \n`;
                     }
-                    else {
+                    else 
+                    {
                         keyDesc = `Required Key(s):  ${dbEN[key].RequiredKey} \n Optional Key(s): ${dbEN[key].OptionalKey} \n \n`
                     }
                 }
 
-                if (this.requiredQuestsForCollector.includes(key) && config.ShowCollectorRequirements) {
+                if (this.requiredQuestsForCollector.includes(key) && config.ShowCollectorRequirements) 
+                {
                     collector = "This quest is required for Collector \n \n";
                 }
                 /*
@@ -266,54 +310,68 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod {
 
                 const nextQuest: string = this.getAllNextQuestsInChain(key);
 
-                if (nextQuest.length > 0 && config.ShowNextQuestInChain) {
+                if (nextQuest.length > 0 && config.ShowNextQuestInChain) 
+                {
                     leadsTo = `Leads to: ${nextQuest} \n \n`;
                 }
-                else if (config.ShowNextQuestInChain) {
+                else if (config.ShowNextQuestInChain) 
+                {
                     leadsTo = "Leads to: Nothing \n \n";
                 }
-                else {
+                else 
+                {
                     leadsTo = "";
                 }
 
-                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) {
+                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
+                {
                     durability = "Required Durability: 60 \n";
                     requiredParts = `${this.getAndBuildPartsList(key)} \n \n`;
                 }
 
-                if (config.ShowTimeUntilNextQuest) {
-                    for (const req of this.timeGateUnlocktimes) {
-                        if (req.currentQuest === key) {
-                            timeUntilNext = `Hours until ${this.locale["en"][`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
+                if (config.ShowTimeUntilNextQuest) 
+                {
+                    for (const req of this.timeGateUnlocktimes) 
+                    {
+                        if (req.currentQuest === key) 
+                        {
+                            timeUntilNext = `Hours until ${this.locale.en[`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
                         }
                     }
                 }
 
-                if (keyDesc == undefined) {
+                if (keyDesc === undefined) 
+                {
                     keyDesc = "";
                 }
 
-                if (collector == undefined) {
+                if (collector === undefined) 
+                {
                     collector = "";
                 }
 
-                if (lightKeeper == undefined) {
+                if (lightKeeper === undefined) 
+                {
                     lightKeeper = "";
                 }
 
-                if (requiredParts == undefined) {
+                if (requiredParts === undefined) 
+                {
                     requiredParts = "";
                 }
 
-                if (durability == undefined) {
+                if (durability === undefined) 
+                {
                     durability = "";
                 }
 
-                if (timeUntilNext == undefined) {
+                if (timeUntilNext === undefined) 
+                {
                     timeUntilNext = "";
                 }
 
-                if (!this.Instance.getPath()) {
+                if (!this.Instance.getPath()) 
+                {
                     database.locales.global[localeID][`${key} description`] = collector + lightKeeper + leadsTo + timeUntilNext + keyDesc + durability + requiredParts + originalDesc;
                     this.cache.locale[localeID][`${key} description`] = database.locales.global[localeID][`${key} description`];
                 }
