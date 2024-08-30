@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as fs from "fs";
+import * as path from "node:path";
+import * as fs from "node:fs";
 import * as config from "../config/config.json";
 
-import * as dbEN from "../db/LocaleEN.json";
 import * as gsEN from "../db/GunsmithLocaleEN.json";
 
 import type { DependencyContainer } from "tsyringe";
@@ -15,6 +15,7 @@ import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 import type { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
 import type { IQuest } from "@spt/models/eft/common/tables/IQuest";
 import type { ITrader } from "@spt/models/eft/common/tables/ITrader";
+import type { IObjective, IQuestInfoModel } from "./IQuestInfoModel";
 
 
 interface TimeGateUnlockRequirements 
@@ -24,29 +25,20 @@ interface TimeGateUnlockRequirements
     time: number
 }
 
-class TimeGateUnlockRequirementsImpl implements TimeGateUnlockRequirements 
-{
-    constructor(public currentQuest: string, public nextQuest: string, public time: number) 
-    {
-    }
-}
-
 class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod 
 {
     private Instance: InstanceManager = new InstanceManager();
     private modName = "ExpandedTaskText";
 
+    private dbPath: string = path.join(path.dirname(__filename), "..", "db");
+
     private tasks: Record<string, IQuest>;
     private locale: Record<string, Record<string, string>>;
+    
+    private QuestInfo: IQuestInfoModel[];
 
     private timeGateUnlocktimes: TimeGateUnlockRequirements[] = [];
-    private requiredQuestsForCollector: string[] = [];
-    private requiredQuestsForLightKeeper: string[] = []; //TODO this still doesnt work properly
-    private tasksHash: string;
-    private configHash: string;
-    private cache: { tasksHash: string; configHash: string; locale: Record<string, Record<string, string>>; };
-
-
+    
     public preSptLoad(container: DependencyContainer): void 
     {
         this.Instance.preSptLoad(container, this.modName);
@@ -60,41 +52,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
 
         this.Instance.logger.log("Expanded Task Text is loading please wait...", LogTextColor.GREEN);
 
+        this.QuestInfo = this.loadJsonFile<IQuestInfoModel[]>(path.join(this.dbPath, "QuestInfo.json"));
+
         this.getAllTasks(this.Instance.database);
-
-        this.getHashes();
-        
-        if (this.isCacheValid()) 
-        {
-            for (const localeID in this.locale) 
-            {
-                for (const questDesc in this.cache.locale[localeID]) 
-                {
-                    this.locale[localeID][questDesc] = this.cache.locale[localeID][questDesc];
-                }
-            }
-        }
-        else 
-        {
-            this.cache = {
-                tasksHash: this.tasksHash,
-                configHash: this.configHash,
-                locale: {}
-            };
-
-            for (const localeID in this.locale) 
-            {
-                this.cache.locale[localeID] = {};
-            }
-
-            this.getAllRequiredQuestsForQuest("5c51aac186f77432ea65c552", this.requiredQuestsForCollector);
-
-            //this.getAllRequiredQuestsForQuest("625d6ff5ddc94657c21a1625", this.requiredQuestsForLightKeeper);
-
-            this.getAllQuestsWithTimeRequirements();
-            this.updateAllTasksText(this.Instance.database);
-            fs.writeFileSync(this.Instance.cachePath, this.Instance.jsonUtil.serialize(this.cache, true));
-        }
+        this.updateAllTasksText();
 
         const endTime = performance.now();
         const startupTime = (endTime - startTime) / 1000;
@@ -102,32 +63,18 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
         this.Instance.logger.log(`Expanded Task Text startup took ${startupTime} seconds...`, LogTextColor.GREEN);
     }
 
-    private getHashes(): void 
+    /**
+     * Loads and parses a config file from disk
+     * @param fileName File name inside of config folder to load
+     */
+    public loadJsonFile<T>(filePath: string, readAsText = false): T
     {
-        const tasksString = this.Instance.jsonUtil.serialize(this.tasks);
-        const configString = this.Instance.jsonUtil.serialize(config);
-
-        this.tasksHash = this.Instance.hashUtil.generateHashForData("sha1", tasksString);
-        this.configHash = this.Instance.hashUtil.generateHashForData("sha1", configString);
-    }
-
-    private isCacheValid(): boolean 
-    {
-        if (!fs.existsSync(this.Instance.cachePath)) 
-        {
-            this.Instance.logger.log("Cache not found. Processing tasks.", LogTextColor.GREEN);
-            return false;
-        }
-        this.cache = JSON.parse(fs.readFileSync(this.Instance.cachePath, "utf-8"));
-
-        if (this.cache.tasksHash === this.tasksHash && this.cache.configHash === this.configHash) 
-        {
-            this.Instance.logger.log("Valid cache found. Merging saved tasks.", LogTextColor.GREEN);
-            return true;
-        }
-
-        this.Instance.logger.log("Invalid cache found. Processing tasks.", LogTextColor.GREEN);
-        return false;
+        const file = path.join(filePath);
+        const string = this.Instance.vfs.readFile(file);
+ 
+        return readAsText 
+            ? string as T
+            : JSON.parse(string) as T;
     }
 
     private getAllTasks(database: IDatabaseTables): void 
@@ -166,51 +113,6 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
 
         const resultString = nextQuests.join(", ");
         return resultString;
-    }
-
-    private getAllRequiredQuestsForQuest(QuestId: string, list: string[]): string[] 
-    {
-        const results: string[] = [];
-        const conditionsAOS = this.tasks[QuestId].conditions.AvailableForStart;
-
-        for (const condition in conditionsAOS) 
-        {
-            if (conditionsAOS[condition]?.conditionType === "Quest") 
-            {
-                if (this.requiredQuestsForCollector.includes(conditionsAOS[condition].target as string)) 
-                {
-                    continue;
-                }
-
-                list.push(conditionsAOS[condition]?.target as string);
-
-                // Recursively find the next quests for the current quest
-                const recursiveResults = this.getAllRequiredQuestsForQuest(conditionsAOS[condition]?.target as string, list);
-                results.push(...recursiveResults);
-            }
-        }
-        return results;
-    }
-
-    private getAllQuestsWithTimeRequirements() 
-    {
-        const tasks = this.tasks;
-
-        for (const task in tasks) 
-        {
-            const conditionsAOS = tasks[task].conditions.AvailableForStart;
-
-            for (const condition in conditionsAOS) 
-            {
-                if (conditionsAOS[condition]?.conditionType === "Quest" && conditionsAOS[condition]?.availableAfter > 0) 
-                {
-                    const hours = conditionsAOS[condition].availableAfter / 3600;
-                    const data = new TimeGateUnlockRequirementsImpl(conditionsAOS[condition].target as string, task, hours);
-
-                    this.timeGateUnlocktimes.push(data);
-                }
-            }
-        }
     }
 
     private getAllTraderLoyalLevelItems(): Record<string, number> 
@@ -264,16 +166,48 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
         return localizedParts.join("\n\n");
     }
 
-    private updateAllTasksText(database: IDatabaseTables) 
+    private buildKeyText(objectives: IObjective[], localeId: string): string | undefined
     {
-        // biome-ignore lint/complexity/noForEach: <explanation>
-        Object.keys(this.tasks).forEach(key => 
-        {
+        let keyDesc = "";
 
-            for (const localeID in this.locale) 
+        for (const obj of objectives)
+        {
+            if (obj.requiredKeys === undefined) continue;
+
+            const objDesc = this.locale[localeId][`${obj.id}`];
+            let keys = "";
+
+            for (const keysInObj in obj.requiredKeys)
             {
-                const originalDesc = this.locale[localeID][`${key} description`];
-                let keyDesc: string;
+                for (const key in obj.requiredKeys[keysInObj])
+                {
+                    const localeKey = `${obj.requiredKeys[keysInObj][key]["id"]} Name`
+                    const localEntry = this.locale[localeId][localeKey];
+
+                    if (localeKey === undefined || localEntry === undefined) continue;
+
+                    keys += `    ${localEntry}\n`;
+                }        
+            }
+
+            if (keys.length === 0) continue;
+
+            keyDesc += `${objDesc}\n Requires key(s):\n${keys}`
+        }
+
+        return keyDesc;
+    }
+
+    private updateAllTasksText() 
+    {
+        const questInfo = this.QuestInfo;
+
+        for (const info of questInfo)
+        {
+            for (const localeID in this.locale) 
+            { 
+                const originalDesc = this.locale[localeID][`${info.id} description`];
+                let keyDesc: string = this.buildKeyText(info.objectives, localeID);
                 let collector: string;
                 let lightKeeper: string;
                 let durability: string;
@@ -281,34 +215,20 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                 let timeUntilNext: string;
                 let leadsTo: string;
 
-                if (dbEN[key]?.IsKeyRequired === true && this.tasks[key]?._id === key) 
-                {
-                    if (dbEN[key]?.OptionalKey === "") 
-                    {
-                        keyDesc = `Required key(s): ${dbEN[key].RequiredKey} \n \n`;
-                    }
-                    else if (dbEN[key]?.RequiredKey === "") 
-                    {
-                        keyDesc = `Optional key(s): ${dbEN[key].OptionalKey} \n \n`;
-                    }
-                    else 
-                    {
-                        keyDesc = `Required Key(s):  ${dbEN[key].RequiredKey} \n Optional Key(s): ${dbEN[key].OptionalKey} \n \n`
-                    }
-                }
-
-                if (this.requiredQuestsForCollector.includes(key) && config.ShowCollectorRequirements) 
+                
+                if (config.ShowCollectorRequirements && info.kappaRequired) 
                 {
                     collector = "This quest is required for Collector \n \n";
                 }
-                /*
-                if (this.requiredQuestsForLightKeeper.includes(key) && config.ShowLightKeeperRequirements) 
+                
+                
+                if (config.ShowLightKeeperRequirements && info.lightkeeperRequired) 
                 {
                     lightKeeper = "This quest is required for Lightkeeper \n \n";
                 }
-                */
+                
 
-                const nextQuest: string = this.getAllNextQuestsInChain(key);
+                const nextQuest: string = this.getAllNextQuestsInChain(info.id);
 
                 if (nextQuest.length > 0 && config.ShowNextQuestInChain) 
                 {
@@ -323,17 +243,17 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                     leadsTo = "";
                 }
 
-                if (gsEN[key]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
+                if (gsEN[info.id]?.RequiredParts !== undefined && config.ShowGunsmithRequiredParts) 
                 {
                     durability = "Required Durability: 60 \n";
-                    requiredParts = `${this.getAndBuildPartsList(key)} \n \n`;
+                    requiredParts = `${this.getAndBuildPartsList(info.id)} \n \n`;
                 }
 
                 if (config.ShowTimeUntilNextQuest) 
                 {
                     for (const req of this.timeGateUnlocktimes) 
                     {
-                        if (req.currentQuest === key) 
+                        if (req.currentQuest === info.id) 
                         {
                             timeUntilNext = `Hours until ${this.locale.en[`${req.nextQuest} name`]} unlocks after completion: ${req.time} \n \n`;
                         }
@@ -370,13 +290,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                     timeUntilNext = "";
                 }
 
-                if (!this.Instance.getPath()) 
-                {
-                    database.locales.global[localeID][`${key} description`] = collector + lightKeeper + leadsTo + timeUntilNext + keyDesc + durability + requiredParts + originalDesc;
-                    this.cache.locale[localeID][`${key} description`] = database.locales.global[localeID][`${key} description`];
-                }
-            }
-        });
+                // biome-ignore lint/style/useTemplate: <>
+                this.locale[localeID][`${info.id} description`] = collector + lightKeeper + leadsTo + timeUntilNext +  (keyDesc.length > 0 ? `${keyDesc} \n` : "") + durability + requiredParts + originalDesc;
+            }          
+        }
     }
 }
 
