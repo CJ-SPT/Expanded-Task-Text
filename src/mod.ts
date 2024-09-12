@@ -321,9 +321,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                 {
                     leadsTo = "";
                 }
-
-                console.log(this.locale[localeId][`${quest} name`]);
-
+                
                 this.locale[localeId][`${quest} description`] = leadsTo + originalDesc;
             }
         }
