@@ -55,7 +55,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
         this.QuestInfo = this.loadJsonFile<IQuestInfoModel[]>(path.join(this.dbPath, "QuestInfo.json"));
 
         this.getAllTasks(this.Instance.database);
-        this.updateAllTasksText();
+        this.updateAllBsgTasksText();
 
         const endTime = performance.now();
         const startupTime = (endTime - startTime) / 1000;
@@ -198,9 +198,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
         return keyDesc;
     }
 
-    private updateAllTasksText() 
+    private updateAllBsgTasksText() 
     {
         const questInfo = this.QuestInfo;
+        const modifiedQuestIds = [];
 
         for (const info of questInfo)
         {
@@ -215,7 +216,8 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                 let timeUntilNext: string;
                 let leadsTo: string;
 
-                
+                modifiedQuestIds.push(info.id);
+
                 if (config.ShowCollectorRequirements && info.kappaRequired) 
                 {
                     collector = "This quest is required for Collector \n \n";
@@ -293,6 +295,37 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
                 // biome-ignore lint/style/useTemplate: <>
                 this.locale[localeID][`${info.id} description`] = collector + lightKeeper + leadsTo + timeUntilNext +  (keyDesc.length > 0 ? `${keyDesc} \n` : "") + durability + requiredParts + originalDesc;
             }          
+        }
+
+        // Handle leads to for custom traders
+        for (const quest in this.Instance.database.templates.quests)
+        {
+            if (modifiedQuestIds.includes(quest)) continue;
+
+            for (const localeId in this.locale)
+            {
+                const originalDesc = this.locale[localeId][`${quest} description`];
+                let leadsTo: string;
+
+                const nextQuest: string = this.getAllNextQuestsInChain(quest);
+
+                if (nextQuest.length > 0 && config.ShowNextQuestInChain) 
+                {
+                    leadsTo = `Leads to: ${nextQuest} \n \n`;
+                }
+                else if (config.ShowNextQuestInChain) 
+                {
+                    leadsTo = "Leads to: Nothing \n \n";
+                }
+                else 
+                {
+                    leadsTo = "";
+                }
+
+                console.log(this.locale[localeId][`${quest} name`]);
+
+                this.locale[localeId][`${quest} description`] = leadsTo + originalDesc;
+            }
         }
     }
 }
