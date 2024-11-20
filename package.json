@@ -1,10 +1,10 @@
 {
     "name": "Expanded Task Text",
-    "version": "1.6.1",
+    "version": "1.6.2",
     "main": "src/mod.js",
     "license": "BY-NC-ND 4.0",
     "author": "Dirtbikercj",
-    "sptVersion": "3.9.x",
+    "sptVersion": "~3.10",
     "scripts": {
         "setup": "npm i",
         "build": "node ./packageBuild.ts"
