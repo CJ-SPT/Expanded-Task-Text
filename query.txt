@@ -1,0 +1,60 @@
+{
+  tasks {
+    wikiLink
+    id
+    kappaRequired
+    lightkeeperRequired
+    objectives {
+      ... on TaskObjectiveBasic {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveExtract {
+        id
+        optional
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveItem {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveMark {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveQuestItem {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveShoot {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+      ... on TaskObjectiveUseItem {
+        id
+        requiredKeys {
+          id
+          name
+        }
+      }
+    }
+  }
+}
