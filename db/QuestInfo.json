@@ -43,6 +43,7 @@
     "objectives": [
       {
         "id": "65733e571b7e7ed95fcd2f0c",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -348,6 +349,7 @@
       {},
       {
         "id": "5d9f035086f7741cac4a9713",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -534,6 +536,42 @@
     ]
   },
   {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Work_Smarter",
+    "id": "675c1cf4a757ddd00404f0a3",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "676ab31c058363b09072c78e",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c1cf4a757ddd00404f0a6",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rite_of_Passage",
+    "id": "675c1ec7a46173572a0bf20a",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c1f040a1128e59422a876",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c1f17cf59d5433be7ae77",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c1f311bd716cdb87947d1",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
     "wikiLink": "https://escapefromtarkov.fandom.com/wiki/The_Huntsman_Path_-_Secured_Perimeter",
     "id": "5d25e2b486f77409de05bba0",
     "kappaRequired": true,
@@ -551,10 +589,6 @@
     "kappaRequired": false,
     "lightkeeperRequired": false,
     "objectives": [
-      {
-        "id": "664bbad8d5057479ac4b8002",
-        "requiredKeys": null
-      },
       {
         "id": "6606b709f7ce34bb26221cab",
         "requiredKeys": null
@@ -761,6 +795,7 @@
       },
       {
         "id": "5fd9fad9c1ce6b1a3b486d0d",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -788,6 +823,7 @@
       },
       {
         "id": "5977784486f774285402cf52",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -853,6 +889,20 @@
       },
       {
         "id": "5c92184386f7746afa2e7840",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Belka_and_Strelka",
+    "id": "675c3507a06634b5110e3c18",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c3507a06634b5110e3c1a",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -876,6 +926,7 @@
       },
       {
         "id": "5968a06486f7740d14064728",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -911,6 +962,7 @@
       },
       {
         "id": "596762ec86f77426d3687a87",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1134,6 +1186,7 @@
       },
       {
         "id": "5ee0e5a8c321a77fc55084d2",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1146,6 +1199,7 @@
     "objectives": [
       {
         "id": "63929101744e452011470818",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1228,6 +1282,7 @@
       },
       {
         "id": "5968962686f7740e7266d973",
+        "optional": false,
         "requiredKeys": null
       },
       {}
@@ -1253,6 +1308,7 @@
       },
       {
         "id": "5c93794086f7740a13567867",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1388,6 +1444,7 @@
       },
       {
         "id": "5c9394a986f7741228714be3",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1412,6 +1469,7 @@
       },
       {
         "id": "5c939d0e86f774185203c4c3",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1496,6 +1554,7 @@
       },
       {
         "id": "59b95de686f77418457056ef",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1516,6 +1575,7 @@
       },
       {
         "id": "597a166d86f774779c70e8a4",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1536,6 +1596,7 @@
       },
       {
         "id": "597a178786f774799e5cd155",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1632,6 +1693,7 @@
       },
       {
         "id": "5c939f2186f774122b6e7854",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -1644,6 +1706,24 @@
       },
       {
         "id": "5a3ba4ba86f7744df759b1e5",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Seizing_the_Initiative",
+    "id": "675c1d6d59b0575973008fc7",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c1d6d59b0575973008fc9",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "675c1dbdcca03cb7f61fc735",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1664,6 +1744,7 @@
       },
       {
         "id": "5ac7a5d586f774383111ee63",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1684,6 +1765,7 @@
       },
       {
         "id": "5ac5e18c86f7743ebd6c9575",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1728,6 +1810,7 @@
       },
       {
         "id": "5a28051286f7740eb10bac04",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1748,6 +1831,7 @@
       },
       {
         "id": "5a37d80986f774245c063b69",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1803,6 +1887,7 @@
       },
       {
         "id": "5c94f65286f77455185027ee",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -1934,6 +2019,7 @@
       },
       {
         "id": "5a37de5486f7741535394d69",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2066,6 +2152,7 @@
       },
       {
         "id": "5ac61b1486f7743a8f30fc84",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2082,6 +2169,7 @@
       },
       {
         "id": "61958d69d14ece31007e2df4",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2139,6 +2227,7 @@
       },
       {
         "id": "64f7325739e45b527a7c4302",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2163,6 +2252,7 @@
       },
       {
         "id": "658009db6b313a8a4ed58851",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2231,6 +2321,7 @@
     "objectives": [
       {
         "id": "669fb12eb01ceef19a5b4ebc",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2303,6 +2394,7 @@
       },
       {
         "id": "66aa74571e5e199ecd094f1b",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -2327,6 +2419,7 @@
       },
       {
         "id": "66aba85403e0ee310104287a",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -2343,6 +2436,22 @@
       },
       {
         "id": "66aba97b1000025218c82ea8",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Passion_for_Ergonomics",
+    "id": "675c1570526ff496850895d9",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c15916580a378dc0f012f",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c1595a4c063af74ee5279",
         "requiredKeys": null
       }
     ]
@@ -2408,6 +2517,7 @@
       },
       {
         "id": "596a0eaf86f774576d4c957f",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -2578,6 +2688,7 @@
       },
       {
         "id": "608a94ae1a66564e74191fc6",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2598,6 +2709,7 @@
       },
       {
         "id": "5a37dc0c86f77469da071ef2",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2614,6 +2726,7 @@
       },
       {
         "id": "5a37db0c86f7745b8f4be68a",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2888,6 +3001,7 @@
       },
       {
         "id": "5ee0e722c321a77fc55084d5",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -2978,6 +3092,7 @@
       },
       {
         "id": "5ac7a93286f774664f4cbd8c",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3006,6 +3121,7 @@
       },
       {
         "id": "639da5ec8fe84d33a25a1435",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3018,6 +3134,7 @@
     "objectives": [
       {
         "id": "63ab184ff627f540861d1185",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3067,6 +3184,7 @@
       },
       {
         "id": "64ee9df4496db64f9b7a4437",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3215,7 +3333,14 @@
     "objectives": [
       {
         "id": "66a0e692281e56a89b717b7d",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "66acd6702b17692df20144c0",
+              "name": "TerraGroup storage room keycard"
+            }
+          ]
+        ]
       },
       {
         "id": "66a0e69ec03c2dad1a84993a",
@@ -3287,6 +3412,7 @@
       },
       {
         "id": "639cebb78fe84d33a25a142b",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3352,6 +3478,7 @@
       },
       {
         "id": "5ae4514986f7740e915d218c",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3412,8 +3539,20 @@
       },
       {
         "id": "639c8c875573fd6cc27d99bb",
+        "optional": false,
         "requiredKeys": null
       }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Gunsmith_-_Old_Friend's_Request",
+    "id": "676529af9c90953d090882e7",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {},
+      {},
+      {}
     ]
   },
   {
@@ -3519,6 +3658,7 @@
       },
       {
         "id": "608c187853b9dd01a116f480",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3539,6 +3679,7 @@
       },
       {
         "id": "608bfe32c61c4b541b381da9",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3555,6 +3696,7 @@
       },
       {
         "id": "65802bfabac8c53c548fca2a",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3575,6 +3717,7 @@
       },
       {
         "id": "66aa5be8035c6a410dc570b2",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -3587,6 +3730,106 @@
       },
       {
         "id": "66aa5c8ba8c36eaef492ef92",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Abandoned_Cargo",
+    "id": "675c03d1f7da9792a405549a",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c0444db2b69f48942f37c",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c04497439eaed82b6dfeb",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c044cc482cb252c5a92d4",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c044e3691199fe911a641",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c3fbeb402d4fa5589516f",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c3fd3a2c0bad5f70af01c",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c3fdd5af984e99db7b4e1",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Shipment_Tracking",
+    "id": "675c047fa46173572a0bd878",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c04b3fc6b273a36ed294a",
+        "requiredKeys": [
+          [
+            {
+              "id": "6761a6f90575f25e020816a4",
+              "name": "Company director's room key"
+            }
+          ]
+        ]
+      },
+      {
+        "id": "675c04c1b68cc8180efb38c6",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Closer_to_the_People",
+    "id": "675c04f4db8807b75d0f38e8",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c04f4db8807b75d0f38eb",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c04f4db8807b75d0f38ec",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Break_the_Deal",
+    "id": "675c085d59b0575973005f52",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c14f54662a2fae349dbb9",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c152299549b5b62094f06",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c153ae96d38136d02f670",
+        "requiredKeys": null
+      },
+      {
+        "id": "67604476b1ae3717835ccaed",
         "requiredKeys": null
       }
     ]
@@ -3627,6 +3870,7 @@
       },
       {
         "id": "64f4fdfa67e11a7c6206de72",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -3655,6 +3899,7 @@
       },
       {
         "id": "5ae4531986f774177033c3e6",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3794,6 +4039,7 @@
       },
       {
         "id": "61abcc6379c3a477d0122457",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3830,6 +4076,7 @@
       },
       {
         "id": "62987d43b7bd956bd62a09b3",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3903,6 +4150,7 @@
       },
       {
         "id": "66ab970848ddbe9d4a0c49ab",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -3928,6 +4176,24 @@
     ]
   },
   {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/A_Helping_Hand",
+    "id": "6752f6d83038f7df520c83e8",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6752f86d538945df8cc3fc3a",
+        "requiredKeys": null
+      },
+      {
+        "id": "6756bcb3f93f4c1fc2b2d685",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {}
+    ]
+  },
+  {
     "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Courtesy_Visit",
     "id": "5d25e48186f77443e625e386",
     "kappaRequired": true,
@@ -3947,6 +4213,7 @@
       },
       {
         "id": "629f4f080f57046e362e6e9e",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -3963,6 +4230,7 @@
       },
       {
         "id": "629f1259422dff20ff234b4d",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4031,6 +4299,7 @@
       },
       {
         "id": "639cee16f5765f47cc7f0ea1",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4051,6 +4320,7 @@
       },
       {
         "id": "639cdf9aad9d7e3216668fd0",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4094,6 +4364,7 @@
       },
       {
         "id": "63a511ea30d85e10e375b047",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4110,6 +4381,7 @@
       },
       {
         "id": "63a7daae04d3dc28a52a2109",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4206,6 +4478,7 @@
       },
       {
         "id": "5a68764c86f77474c4269f3c",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4230,6 +4503,7 @@
       },
       {
         "id": "5a68778c86f77423391f38f0",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4332,6 +4606,558 @@
     ]
   },
   {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Shipping_Delay_-_Part_2",
+    "id": "673f2cd5d3346c2167020484",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f2d938504a2d993bc2e68",
+        "requiredKeys": null
+      },
+      {
+        "id": "673f2d9a73ff76dd6d5a6344",
+        "requiredKeys": null
+      },
+      {
+        "id": "673f2da118e615f9f5550544",
+        "requiredKeys": null
+      },
+      {}
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Shipping_Delay_-_Part_1",
+    "id": "673f348dd3346c21670217e7",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f34c674ec5bf80ea69eee",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Hot_Wheels",
+    "id": "673f4e956f1b89c7bc0f56ef",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f507029a1128d5c4d7498",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Hot_Wheels_-_Let's_Try_Again",
+    "id": "673f5a4976553f78350bdac1",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f5a9537550b9d7fd30777",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Inevitable_Response",
+    "id": "673f6027352b4da8e00322d2",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f60910aed589d887b5ea1",
+        "requiredKeys": null
+      },
+      {
+        "id": "67499a4f03b8295863172dea",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "67499a61ddf14e140a675607",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Order_From_Outside",
+    "id": "673f61a066e6a521aa04b62b",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f61d9c2bc3dc676297fde",
+        "requiredKeys": null
+      },
+      {
+        "id": "673f61ea87e01cfaf780a482",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Building_Foundations",
+    "id": "673f629c5b555b53460cf827",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "673f637a1fbc23a60a72b743",
+        "requiredKeys": null
+      },
+      {
+        "id": "67519696567b9773f0811bae",
+        "requiredKeys": null
+      },
+      {
+        "id": "675196dff77c0b8436ec1ef5",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Natural_Exchange",
+    "id": "6740a02a69a58fceba0ff399",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6740a0c33c7152ccfe151146",
+        "requiredKeys": null
+      },
+      {
+        "id": "6740a0d5b05fb787316fe7d5",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Half-Empty",
+    "id": "6740a2c17e3818d5bb0648b6",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6749aa9b1badcb1e8056d769",
+        "requiredKeys": null
+      },
+      {
+        "id": "6740a33685a62f9581c2beaf",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Stick_in_the_Wheel",
+    "id": "6740a3f4eca8acb2d2055159",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6740a42c508599fd5a066f19",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Ask_for_Directions",
+    "id": "674492b6909d2013670a347a",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "674492e56e8d2d5239a3fd37",
+        "requiredKeys": null
+      },
+      {
+        "id": "674492ebf6f84f7d09ef1abb",
+        "requiredKeys": null
+      },
+      {
+        "id": "674492f0636d0661476732f2",
+        "requiredKeys": null
+      },
+      {
+        "id": "674492f30f45cb752f21df39",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Stabilize_Business",
+    "id": "6744a4717e3818d5bb0680bb",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6744a4e6c8a456e74064e7d7",
+        "requiredKeys": null
+      },
+      {
+        "id": "6744a6b96cefb76fd3f70555",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Battery_Change",
+    "id": "6744a728352b4da8e003eda9",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6744a964dc1b1e2ee134ffeb",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Battery_Change",
+    "id": "6744a9dfef61d56e020b5c4a",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6744a9dfef61d56e020b5c54",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Protect_the_Sky",
+    "id": "6744ab1def61d56e020b5c56",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6744ab1def61d56e020b5c5f",
+        "requiredKeys": null
+      },
+      {
+        "id": "6744ab1def61d56e020b5c60",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Discombobulate",
+    "id": "6744aca8d3346c216702c583",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6744ae5cc771515803d615ec",
+        "requiredKeys": null
+      },
+      {
+        "id": "6744ae63b3b4be24ffc607a4",
+        "requiredKeys": null
+      },
+      {
+        "id": "6744ae65f8c1438fb9374575",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/The_Higher_They_Fly",
+    "id": "6745fae369a58fceba10343d",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6745fae369a58fceba103458",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Swift_Retribution",
+    "id": "6745fcded0fbbc74ca0f721d",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6745fd2e3d6070c3563039a9",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Simple_Side_Job",
+    "id": "6745fdddd3346c216702e0bf",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6745fe81eae30b9fb3bb6166",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745fe8d48cd7aeda7152b24",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Route_Deviation",
+    "id": "674600a366e6a521aa05eb66",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "67460118d3498f1b35e0a025",
+        "requiredKeys": null
+      },
+      {
+        "id": "6746011dfd1dc9d0f502e55d",
+        "requiredKeys": null
+      },
+      {
+        "id": "674601247aa943781a1cf3fc",
+        "requiredKeys": null
+      },
+      {
+        "id": "674601282043d1ef3c6b2eec",
+        "requiredKeys": null
+      },
+      {
+        "id": "6746012a35218bb89951248e",
+        "requiredKeys": null
+      },
+      {
+        "id": "6746012d871e69a9abb5873d",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Hindsight_20%2F20",
+    "id": "674602307e3818d5bb069489",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "674602682cb1c1f5999f27aa",
+        "requiredKeys": null
+      },
+      {
+        "id": "674da90a45aa075a44b4d687",
+        "requiredKeys": null
+      },
+      {
+        "id": "674da90f96d4f32d517cb770",
+        "requiredKeys": null
+      },
+      {
+        "id": "674da9141cc05673dc69e7e7",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Key_Partner",
+    "id": "6746053b5b555b53460d9896",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675197664e610fc2b88e0bf3",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Killer_Argument",
+    "id": "674605df60a98cad1b0ec799",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6746061983996c4aa4765025",
+        "requiredKeys": null
+      },
+      {
+        "id": "674606266884ca9cfc83530e",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Forge_a_Friendship",
+    "id": "6740a15566e6a521aa051b15",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6740a202086cf3dbf687279a",
+        "requiredKeys": null
+      },
+      {
+        "id": "6740a20cc6daae7f8f12a77d",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Another_Shipping_Delay",
+    "id": "6740b60c60a98cad1b0e0aa0",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6740b64f024f0e44fbed2c48",
+        "requiredKeys": null
+      },
+      {
+        "id": "6740b66079ff8ea717dad584",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/The_Price_of_Independence",
+    "id": "6744af0969a58fceba101fed",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6745c8ccb4adeab3910332cc",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c8ee54d6972417ad7bad",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c8de22c7ee46e3319c34",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c90842db81af412eae97",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c9482ac6bee79dca869a",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c9623d362cd373b1de93",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c986a3e10e0bf6472d8e",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c992bf76b3aeaf6370e0",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c9b89c84a273d4a2dc28",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745c9a86086867a2c723e9d",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/The_Price_of_Independence",
+    "id": "6745cbee909d2013670a4a55",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6745cbee909d2013670a4a60",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a61",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a63",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a64",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a66",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a68",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a6a",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a6c",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a6e",
+        "requiredKeys": null
+      },
+      {
+        "id": "6745cbee909d2013670a4a70",
+        "optional": false,
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Choose_Your_Friends_Wisely",
+    "id": "67460662d0fbbc74ca0f7229",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "674606bac840f707bea6242f",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "674606ccff406a9f6a28e26f",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "674606f1c63637e54bede3a6",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "6746071002dfd67c0629a379",
+        "optional": false,
+        "requiredKeys": null
+      },
+      {
+        "id": "674607317781508c405fb979",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
     "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Colleagues_-_Part_1",
     "id": "5edab736cc183c769d778bc2",
     "kappaRequired": true,
@@ -4351,6 +5177,7 @@
       },
       {
         "id": "5f03969a51823847c253afa0",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4375,6 +5202,7 @@
       },
       {
         "id": "5f0389268580cc37797e0026",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4450,6 +5278,7 @@
       },
       {
         "id": "5f039da057a46716b610b577",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4644,6 +5473,7 @@
       },
       {
         "id": "639d00a28fe84d33a25a142f",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4806,6 +5636,7 @@
       },
       {
         "id": "5f04983ffbed7a08077b4367",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -4921,6 +5752,7 @@
       },
       {
         "id": "5b478de086f7744d1c3533a1",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -5013,6 +5845,22 @@
       },
       {
         "id": "66168239957ac58c30b29135",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Private_Club",
+    "id": "675c3582f6ddc329a90f9c6d",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c37d2da4b531ba8daaadd",
+        "requiredKeys": null
+      },
+      {
+        "id": "675c37e07ac1a33fff170966",
         "requiredKeys": null
       }
     ]
@@ -5427,6 +6275,7 @@
       },
       {
         "id": "65801b07a26e65a69c2fedd1",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -5450,6 +6299,7 @@
       },
       {
         "id": "65800413f41301adef3c9698",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -5558,6 +6408,7 @@
       },
       {
         "id": "6190464d74169a76c90aa230",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -5642,6 +6493,7 @@
       },
       {
         "id": "639da86bad9d7e3216668fd7",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -5675,6 +6527,7 @@
       },
       {
         "id": "64ee9cc69a4f90510651507e",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6048,6 +6901,7 @@
       },
       {
         "id": "66ab9da7eb102b9bcd08591f",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -6142,6 +6996,7 @@
     "objectives": [
       {
         "id": "5bb60cbc88a45011a8235cc5",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6275,6 +7130,7 @@
       },
       {
         "id": "5c10f94386f774227172c577",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6356,6 +7212,7 @@
       },
       {
         "id": "66aa61663aa37705c502427c",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -6380,18 +7237,6 @@
       },
       {
         "id": "5d271a3486f774483c7bdb12",
-        "requiredKeys": null
-      }
-    ]
-  },
-  {
-    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/The_Stylish_One",
-    "id": "5dc53acb86f77469c740c893",
-    "kappaRequired": false,
-    "lightkeeperRequired": false,
-    "objectives": [
-      {
-        "id": "5dc53fd386f77469c87589a3",
         "requiredKeys": null
       }
     ]
@@ -6448,6 +7293,7 @@
       },
       {
         "id": "639dbba35b759c65a3476549",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6533,6 +7379,7 @@
       },
       {
         "id": "63972c5d61b7754ff93bf3ba",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6669,6 +7516,7 @@
       },
       {
         "id": "62602c89a4eb80027c4f2e0f",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6744,6 +7592,7 @@
       },
       {
         "id": "63972db222ea23711e21aaaa",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6780,22 +7629,27 @@
     "objectives": [
       {
         "id": "6397a2eee5d9c6753c61e2d8",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "6397a3b6f376f0344e45711b",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "6397a47fe5d9c6753c61e2da",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "6397a5cbdcdd126fef173f36",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "65e09d3f0d1442c78274027e",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -6816,11 +7670,25 @@
     "objectives": [
       {
         "id": "63a7cee004d3dc28a52a20f8",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "6398fd8ad3de3849057f5128",
+              "name": "Backup hideout key"
+            }
+          ]
+        ]
       },
       {
         "id": "63990a1ddcdd126fef1771c1",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "6398fd8ad3de3849057f5128",
+              "name": "Backup hideout key"
+            }
+          ]
+        ]
       },
       {
         "id": "63990ae2dcdd126fef1771c2",
@@ -6836,6 +7704,7 @@
     "objectives": [
       {
         "id": "63b33cd9862e1142130b610c",
+        "optional": false,
         "requiredKeys": null
       },
       {
@@ -6844,11 +7713,25 @@
       },
       {
         "id": "6399c929d65735732c6ba766",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5d9f1fa686f774726974a992",
+              "name": "RB-ST key"
+            }
+          ]
+        ]
       },
       {
         "id": "6399ca5fe101160ce05706ac",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5d9f1fa686f774726974a992",
+              "name": "RB-ST key"
+            }
+          ]
+        ]
       },
       {
         "id": "6399cc30b5992f573c65782b",
@@ -6876,6 +7759,7 @@
       },
       {
         "id": "6397af5cf376f0344e457120",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6912,18 +7796,46 @@
       },
       {
         "id": "639a77b97cb1a8023d49f683",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5ad5d7d286f77450166e0a89",
+              "name": "Kiba Arms outer door key"
+            }
+          ],
+          [
+            {
+              "id": "5addaffe86f77470b455f900",
+              "name": "Kiba Arms inner grate door key"
+            }
+          ]
+        ]
       },
       {
         "id": "639a78046402c537c15d012f",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5e42c81886f7742a01529f57",
+              "name": "Object #11SR keycard"
+            }
+          ]
+        ]
       },
       {
         "id": "639a78c27cb1a8023d49f684",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5e42c83786f7742a021fdf3c",
+              "name": "Object #21WS keycard"
+            }
+          ]
+        ]
       },
       {
         "id": "639a79785e3c9b787264d672",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -6940,11 +7852,25 @@
       },
       {
         "id": "63a7cf9f04d3dc28a52a20fa",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5c1e2d1f86f77431e9280bee",
+              "name": "TerraGroup Labs weapon testing area key"
+            }
+          ]
+        ]
       },
       {
         "id": "63a7cfe104d3dc28a52a20fc",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "5c1d0f4986f7744bb01837fa",
+              "name": "TerraGroup Labs keycard (Black)"
+            }
+          ]
+        ]
       },
       {
         "id": "639ae49a5e3c9b787264d675",
@@ -6972,14 +7898,29 @@
       },
       {
         "id": "63a7d315f32fa1316250c3d2",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "63a39e1d234195315d4020bd",
+              "name": "Primorsky 46-48 skybridge key"
+            }
+          ]
+        ]
       },
       {
         "id": "639c39807c1532d85b0162a9",
-        "requiredKeys": null
+        "requiredKeys": [
+          [
+            {
+              "id": "63a39e1d234195315d4020bd",
+              "name": "Primorsky 46-48 skybridge key"
+            }
+          ]
+        ]
       },
       {
         "id": "639c3e21a1c5f814670c35e8",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -7021,50 +7962,7 @@
       },
       {
         "id": "639b002fda859817035a344b",
-        "requiredKeys": null
-      }
-    ]
-  },
-  {
-    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Overseas_Trust_-_Part_1",
-    "id": "64f1cc571a5f313cb144bf90",
-    "kappaRequired": false,
-    "lightkeeperRequired": false,
-    "objectives": [
-      {
-        "id": "64f1cc571a5f313cb144bf91",
-        "requiredKeys": null
-      },
-      {
-        "id": "64f1cc571a5f313cb144bf93",
-        "requiredKeys": null
-      },
-      {
-        "id": "64f1cc571a5f313cb144bf95",
-        "requiredKeys": null
-      },
-      {
-        "id": "64f1cc571a5f313cb144bf97",
-        "requiredKeys": null
-      },
-      {
-        "id": "64f1cc571a5f313cb144bf99",
-        "requiredKeys": null
-      },
-      {
-        "id": "64f1cc571a5f313cb144bf9b",
-        "requiredKeys": null
-      }
-    ]
-  },
-  {
-    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Overseas_Trust_-_Part_2",
-    "id": "64f1d6e732bed22c3e0c7423",
-    "kappaRequired": false,
-    "lightkeeperRequired": false,
-    "objectives": [
-      {
-        "id": "64f1d7bf32bed22c3e0c7425",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -7102,6 +8000,121 @@
     ]
   },
   {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends_-_Security",
+    "id": "626148334149f1149b5b12ca",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "62668b98ddc94657c21a1628",
+        "requiredKeys": null
+      },
+      {
+        "id": "62668ba11ed3bb5bcc5bd9ef",
+        "requiredKeys": null
+      },
+      {
+        "id": "62668ba4aa168e51321d69e0",
+        "requiredKeys": null
+      },
+      {
+        "id": "62668ba9a4eb80027c4f2e16",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends_-_Sweep_Up",
+    "id": "62614836f7308432be1d44cc",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "626171a0f7308432be1d44cd",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends",
+    "id": "6391d912f8e5dd32bf4e3ab2",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6391d9ba4b15ca31f76bc325",
+        "requiredKeys": null
+      },
+      {
+        "id": "6391d9e7ee79ee703e3012e5",
+        "requiredKeys": null
+      },
+      {
+        "id": "6391d9fd8ba6894d155e77db",
+        "requiredKeys": null
+      },
+      {
+        "id": "63ab6a89e842787ad2135719",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends_-_Software",
+    "id": "6261483ac48e6c62a440fab7",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "626676e1c48e6c62a440faba",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends_-_Quarantine",
+    "id": "6261483dc4874104f230c0cd",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "62692a8a161ea75b3470d90e",
+        "requiredKeys": [
+          [
+            {
+              "id": "5c1d0f4986f7744bb01837fa",
+              "name": "TerraGroup Labs keycard (Black)"
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Make_Amends",
+    "id": "6391d9144b15ca31f76bc323",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "6391d9ba4b15ca31f76bc325",
+        "requiredKeys": null
+      },
+      {
+        "id": "6391d9e7ee79ee703e3012e5",
+        "requiredKeys": null
+      },
+      {
+        "id": "6391d9fd8ba6894d155e77db",
+        "requiredKeys": null
+      },
+      {
+        "id": "63ab6a89e842787ad2135719",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
     "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Top_Secret",
     "id": "626bd75d5bef5d7d590bd415",
     "kappaRequired": false,
@@ -7131,6 +8144,18 @@
       },
       {
         "id": "626c30c55bef5d7d590bd41b",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Connections_Up_North",
+    "id": "6764174c86addd02bc033d68",
+    "kappaRequired": false,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "676418a60b9bcbe280972288",
         "requiredKeys": null
       }
     ]
@@ -7501,42 +8526,52 @@
     "objectives": [
       {
         "id": "5c0e6876d09282029e2fffe0",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5c0e687ad0928202b25db840",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5c13979886f774251443c1a6",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5c13982286f774365a69cc4d",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5c13989886f7747878361a50",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5c1931e686f7747ce71bcbea",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "5dc984ae4b68b15f4825cea5",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "629f08e7d285f377953b2af1",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "63aec66556503c322a190372",
+        "optional": false,
         "requiredKeys": null
       },
       {
         "id": "65e08b7a2f82d184fcf9ef61",
+        "optional": false,
         "requiredKeys": null
       }
     ]
@@ -7561,6 +8596,18 @@
     "objectives": [
       {
         "id": "66a0f5a7f9eae6761253114c",
+        "requiredKeys": null
+      }
+    ]
+  },
+  {
+    "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Test_Drive_-_Part_6",
+    "id": "675c1ff1a757ddd00404f0aa",
+    "kappaRequired": true,
+    "lightkeeperRequired": false,
+    "objectives": [
+      {
+        "id": "675c1ff1a757ddd00404f0ae",
         "requiredKeys": null
       }
     ]
@@ -8345,6 +9392,7 @@
     "objectives": [
       {
         "id": "666719fc7c5ae40e6adcf43e",
+        "optional": false,
         "requiredKeys": null
       }
     ]

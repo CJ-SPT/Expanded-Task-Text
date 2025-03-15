@@ -17,7 +17,7 @@ import type { ImporterUtil } from "@spt/utils/ImporterUtil";
 import type { SaveServer } from "@spt/servers/SaveServer";
 import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import type { HashUtil } from "@spt/utils/HashUtil";
-import type { VFS } from "@spt/utils/VFS";
+import type { FileSystem } from "@spt/utils/FileSystem" 
 
 export class InstanceManager 
 {
@@ -38,7 +38,7 @@ export class InstanceManager
     public itemHelper: ItemHelper;
     public logger: ILogger;
     public staticRouter: StaticRouterModService;
-    public vfs: VFS;
+    public vfs: FileSystem;
     //#endregion
 
     //#region Accessible in or after postDBLoad
@@ -65,7 +65,7 @@ export class InstanceManager
         this.itemHelper = container.resolve<ItemHelper>("ItemHelper");
         this.logger = container.resolve<ILogger>("WinstonLogger");
         this.staticRouter = container.resolve<StaticRouterModService>("StaticRouterModService");
-        this.vfs = container.resolve<VFS>("VFS");
+        this.vfs = container.resolve<FileSystem>("FileSystem");
     }
 
     public postDBLoad(container: DependencyContainer): void

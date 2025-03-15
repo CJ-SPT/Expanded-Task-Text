@@ -44,7 +44,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
         this.Instance.preSptLoad(container, this.modName);
     }
 
-    public postDBLoad(container: DependencyContainer): void 
+    public async postDBLoad(container: DependencyContainer): Promise<void> 
     {
         const startTime = performance.now();
 
@@ -52,7 +52,7 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
 
         this.Instance.logger.log("Expanded Task Text is loading please wait...", LogTextColor.GREEN);
 
-        this.QuestInfo = this.loadJsonFile<IQuestInfoModel[]>(path.join(this.dbPath, "QuestInfo.json"));
+        this.QuestInfo = await this.loadJsonFile<IQuestInfoModel[]>(path.join(this.dbPath, "QuestInfo.json"));
 
         this.getAllTasks(this.Instance.database);
         this.updateAllBsgTasksText();
@@ -67,10 +67,10 @@ class DExpandedTaskText implements IPostDBLoadMod, IPreSptLoadMod
      * Loads and parses a config file from disk
      * @param fileName File name inside of config folder to load
      */
-    public loadJsonFile<T>(filePath: string, readAsText = false): T
+    public async loadJsonFile<T>(filePath: string, readAsText = false): Promise<T>
     {
         const file = path.join(filePath);
-        const string = this.Instance.vfs.readFile(file);
+        const string = await this.Instance.vfs.read(file);
  
         return readAsText 
             ? string as T
